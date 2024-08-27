@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
+//Retrofit is a type-safe HTTP client library for Android and Java, developed by Square
 class RetrofitInstance {
 
     companion object{ //What we will write it will static or fixed values.
