@@ -1,11 +1,12 @@
-package com.example.quicknews
+package com.example.quicknews.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.quicknews.R
 
-class MainActivity : AppCompatActivity() {
+class NewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_news)
     }
 }
