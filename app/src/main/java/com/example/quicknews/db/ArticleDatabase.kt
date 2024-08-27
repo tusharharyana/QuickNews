@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import com.example.quicknews.models.Article
 
@@ -30,12 +29,12 @@ abstract class ArticleDatabase:RoomDatabase() {
         //invoke: operator is used for simplicity when create an object.
         //Double check locking pattern is implemented to ensure Thread safety during database creation process.
         operator fun invoke(context:Context) = instance ?: synchronized(LOCK){
-            instance ?: createDatabase(context).also {
-                instance = it
+            instance ?: createDatabase(context).also{
+
             }
         }
 
-        private fun createDatabase(context: Context): Any {
+        private fun createDatabase(context: Context) =
 
             Room.databaseBuilder(
 
@@ -44,7 +43,6 @@ abstract class ArticleDatabase:RoomDatabase() {
                 "article_db.db"
             ).build()
 
-        }
 
     }
 
