@@ -6,7 +6,7 @@ A sealed class in Kotlin is a type of class that restricts the inheritance hiera
  */
 sealed class Resource<T>(
 
-    val data:T? = null
+    val data:T? = null,
     val message:String? = null
 )
 {
