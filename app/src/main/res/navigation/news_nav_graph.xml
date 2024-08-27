@@ -8,13 +8,19 @@
     <fragment
         android:id="@+id/articleFragment"
         android:name="com.example.quicknews.ui.fragments.ArticleFragment"
-        android:label="fragment_article"
-        tools:layout="@layout/fragment_article" />
+        android:label="ArticleFragment"
+        >
+
+        <argument
+            android:name="article"
+            app:argType="com.example.quicknews.models.Article"/>
+
+    </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.quicknews.ui.fragments.FavouritesFragment"
-        android:label="fragment_favourites"
-        tools:layout="@layout/fragment_favourites" >
+        android:label="FavouritesFragment"
+        >
         <action
             android:id="@+id/action_favouritesFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
@@ -22,8 +28,8 @@
     <fragment
         android:id="@+id/headlinesFragment"
         android:name="com.example.quicknews.ui.fragments.HeadlinesFragment"
-        android:label="fragment_headlines"
-        tools:layout="@layout/fragment_headlines" >
+        android:label="headlinesFragment"
+         >
         <action
             android:id="@+id/action_headlinesFragment_to_articleFragment"
             app:destination="@id/articleFragment" />
@@ -31,8 +37,8 @@
     <fragment
         android:id="@+id/searchFragment2"
         android:name="com.example.quicknews.ui.fragments.SearchFragment"
-        android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        android:label="searchFragment"
+        >
         <action
             android:id="@+id/action_searchFragment2_to_articleFragment"
             app:destination="@id/articleFragment" />
