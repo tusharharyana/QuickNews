@@ -12,18 +12,18 @@ import com.bumptech.glide.Glide
 import com.example.quicknews.R
 import com.example.quicknews.models.Article
 
-class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
+class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
-    inner class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val articleImage: ImageView = itemView.findViewById(R.id.articleImage)
+        val articleSource: TextView = itemView.findViewById(R.id.articleSource)
+        val articleDescription: TextView = itemView.findViewById(R.id.articleDescription)
+        val articleTitle: TextView = itemView.findViewById(R.id.articleTitle)
+        val articleDateTime: TextView = itemView.findViewById(R.id.articleDateTime)
+    }
 
-    private lateinit var articleImage: ImageView
-    private lateinit var articleSource: TextView
-    private lateinit var articleDescription: TextView
-    private lateinit var articleTitle: TextView
-    private lateinit var articleDateTime: TextView
-
-    //To efficiently update the content of recycle view with refreshing the entire dataset.
-    private val differCallback = object : DiffUtil.ItemCallback<Article>(){
+    // To efficiently update the content of RecyclerView without refreshing the entire dataset.
+    private val differCallback = object : DiffUtil.ItemCallback<Article>() {
 
         override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem.url == newItem.url
@@ -36,48 +36,41 @@ class NewsAdapter:RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        return ArticleViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
-        )
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_news, parent, false)
+        return ArticleViewHolder(itemView)
     }
 
     override fun getItemCount(): Int {
-        //return the size of list
         return differ.currentList.size
     }
 
-    private var onItemClickListener:((Article) -> Unit) ?= null
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-
-        //Bind data with view
         val article = differ.currentList[position]
 
-        articleImage = holder.itemView.findViewById(R.id.articleImage)
-        articleDateTime = holder.itemView.findViewById(R.id.articleDateTime)
-        articleSource = holder.itemView.findViewById(R.id.articleSource)
-        articleTitle = holder.itemView.findViewById(R.id.articleTitle)
-        articleDescription = holder.itemView.findViewById(R.id.articleDescription)
+        holder.apply {
+            // Load image with Glide and handle null or empty URL
+            if (!article.urlToImage.isNullOrEmpty()) {
+                Glide.with(itemView).load(article.urlToImage).into(articleImage)
+            } else {
+                articleImage.setImageResource(R.drawable.placeholder_image) // Set a placeholder image if URL is null or empty
+            }
 
-        holder.itemView.apply {
-            //For handling image data to load image from url into articleImage view
-            Glide.with(this).load(article.urlToImage).into(articleImage)
             articleSource.text = article.source?.name
             articleTitle.text = article.title
-            articleDescription.text = article.description.toString()
+            articleDescription.text = article.description
             articleDateTime.text = article.publishedAt
 
-            //If any item is clicked then it open article.
-            setOnClickListener{
-                onItemClickListener?.let {
-                    it(article)
+            itemView.setOnClickListener {
+                onItemClickListener?.let { clickListener ->
+                    clickListener(article)
                 }
             }
         }
     }
 
-    fun setOnItemClickListener(listener: (Article) -> Unit){
+    private var onItemClickListener: ((Article) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Article) -> Unit) {
         onItemClickListener = listener
     }
-
-
 }

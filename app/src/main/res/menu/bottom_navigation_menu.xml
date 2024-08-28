@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/hadlinesFragment"
+        android:id="@+id/headlinesFragment"
         android:title="Headlines"
         android:icon="@drawable/baseline_headline_24"/>
     <item

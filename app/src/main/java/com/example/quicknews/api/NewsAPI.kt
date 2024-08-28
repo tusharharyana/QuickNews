@@ -8,12 +8,12 @@ import retrofit2.http.Query
 
 interface NewsAPI {
 
-    @GET("v2/top-headlines")
+    @GET("v2/everything")
 
     suspend fun getHeadlines(
 
-        @Query("country")
-        countryCode: String = "us",
+        @Query("q")
+        searchQuery: String,
 
         @Query("page")
         pageNumber: Int = 1,

@@ -11,14 +11,14 @@ import java.io.Serializable
 data class Article(
 
     @PrimaryKey(autoGenerate = true)
-    var id:Int? = null,
+    var id: Int? = null,
 
     val author: String,
-    val content: Any,
-    val description: Any,
+    val content: String?, // Changed to String or other appropriate type
+    val description: String?, // Changed to String or other appropriate type
     val publishedAt: String,
-    val source: Source,//Database not support obj datatype so type conversion needed
+    val source: Source, // Stored as JSON using the converter
     val title: String,
     val url: String,
-    val urlToImage: Any
+    val urlToImage: String?
 ):Serializable

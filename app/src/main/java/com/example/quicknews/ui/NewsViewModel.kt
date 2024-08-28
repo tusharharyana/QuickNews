@@ -21,18 +21,18 @@ import java.util.Locale.IsoCountryCode
 class NewsViewModel(app: Application, val newsRepository: NewsRepository ):AndroidViewModel(app) {
 
     val headlines: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    private var headlinesPage = 1
+    var headlinesPage = 1
     private var headlinesResponse: NewsResponse? = null
 
     val searchNews: MutableLiveData<Resource<NewsResponse>> = MutableLiveData()
-    private var searchNewsPage = 1
+    var searchNewsPage = 1
     private var searchNewsResponse: NewsResponse? = null
 
     private var newSearchQuery: String? = null
     private var oldSearchQuery: String? = null
 
         init{
-            getHeadlines("us")
+            getHeadlines("headlines")
         }
 
         fun getHeadlines(countryCode: String) = viewModelScope.launch {
@@ -77,7 +77,7 @@ class NewsViewModel(app: Application, val newsRepository: NewsRepository ):Andro
                         searchNewsPage++
                         val oldArticles = searchNewsResponse?.articles
                         val newArticles = resultResponse.articles
-                            oldArticles?.addAll(newArticles)
+                        oldArticles?.addAll(newArticles)
                     }
                     return Resource.Success(searchNewsResponse ?: resultResponse)
                 }

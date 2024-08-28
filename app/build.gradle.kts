@@ -74,6 +74,6 @@ dependencies {
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.5")
     // Glide: Used for image processing
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
-    ksp ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation ("com.github.bumptech.glide:glide:4.15.1")
+    ksp ("com.github.bumptech.glide:compiler:4.15.1")
 }
